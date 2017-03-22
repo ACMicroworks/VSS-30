@@ -1,2 +1,5 @@
 name: VSS-30 Sampler Emulator
 markdown: kramdown
+
+theme: jekyll-theme-slate
+
