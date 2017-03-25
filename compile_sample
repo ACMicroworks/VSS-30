@@ -1,0 +1,5 @@
+avr-gcc -g -Os -mmcu=atmega328 -c demo.c
+avr-gcc -g -mmcu=atmega328 -o demo.elf demo.o
+avr-gcc -g -mmcu=atmega328 -Wl, -Map, demo.map -o demo.elf demo.
+avr-objcopy -j .text -j .data -O ihex demo.elf demo.hex
+avrdude -c atmega328 -p arduino -U flash:w:demo.hex
