@@ -1,5 +1,8 @@
+MCU=atmega328p
+F_CUP=16000000UL
+BAUD=9600UL
+
 CC=avr-gcc
-MCU=atmega328
 DEPS = portset.h
 
 # Default Target
