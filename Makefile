@@ -1,6 +1,6 @@
 MCU=atmega328p
-F_CUP=16000000UL
-BAUD=9600UL
+F_CUP=16000000
+BAUD=9600
 
 CC=avr-gcc
 DEPS = portset.h

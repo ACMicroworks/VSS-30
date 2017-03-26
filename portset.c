@@ -35,24 +35,30 @@ main (int argc, char *argv[])
 void
 init (unsigned int ubrr)
 {  
+  /* Set the Baud Rate */
+  UBRR0H = (unsigned char) (ubrr >> 8);
+  UBRR0L = (unsigned char) ubrr;
 
   /* Enable the Transmitter and Receiver */
   UCSR0B |= TXEN;
   UCSR0B |= RXEN;
 
+  /* Set Asynchronous USART */
+  UCSR0C |= (1 << UMSEL01);
+  UCSR0C |= (1 << UMSEL00);
+
+  /* Frame Formatting - Clock Polarity = 0 for Asynchronous USART */
+  UCSR0C &= !(1 << UCPOL0);
+  
   /* Remove the Baud Rate Transmission Doubler */
   UCSR0A &= ~(1 << U2X0);
   
-  /* Set the Baud Rate */
-  UBRR0H = (unsigned char)(ubrr >> 8);
-  UBRR0L = (unsigned char)ubrr;
-  
   /* Enable Transmitter and Receiver Interrupts */
-  UCSR0B |= (1 << RXCIE0);
-  UCSR0B |= (1 << TXCIE0);
+  //  UCSR0B |= (1 << RXCIE0);
+  //  UCSR0B |= (1 << TXCIE0);
     
   /* Enable Data Register Empty Interrupt */
-  UCSR0B |= (1 << UDRIE0);
+  //  UCSR0B |= (1 << UDRIE0);
   
   /* Frame Formatting - Parity = None*/
   UCSR0C |= (1 << UPM01);
@@ -65,12 +71,7 @@ init (unsigned int ubrr)
   UCSR0C |= (1 << UCSZ01);
   UCSR0C |= (1 << UCSZ00);
 
-  /* Frame Formatting - Clock Polarity = 0 for Asynchronous USART */
-  UCSR0C &= !(1 << UCPOL0);
 
-  /* Set Asynchronous USART */
-  UCSR0C |= (1 << UMSEL01);
-  UCSR0C |= (1 << UMSEL00);
   
 }
 
